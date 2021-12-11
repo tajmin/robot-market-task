@@ -1,10 +1,12 @@
 import * as React from 'react';
+import Shop from './components/Shop/Shop/Shop';
 
 function App() {
   return (
     <div className="App">
-      <h1>Robot Market</h1>
+
       {/*Add your code here*/}
+      <Shop></Shop>
     </div>
   );
 }
