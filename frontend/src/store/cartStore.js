@@ -1,4 +1,4 @@
-export const cartStore = {
+export const initialCartState = {
     robots: [],
-    shipment: []
+    cart: []
 }

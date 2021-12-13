@@ -1,13 +1,14 @@
 import React from 'react';
-import useRobots from '../../../hooks/useRobots';
+import useCart from '../../../hooks/useCart';
 import Robot from '../Robot/Robot';
 
 const Robots = () => {
-    const { robots } = useRobots();
+    const { state } = useCart();
+
     return (
         <div className="grid grid-cols-2 gap-16">
             {
-                robots.map(item => <Robot
+                state?.robots.map(item => <Robot
                     key={item.createdAt}
                     robot={item}
                 ></Robot>)

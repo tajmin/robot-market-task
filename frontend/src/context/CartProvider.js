@@ -1,15 +1,11 @@
 import { createContext, useEffect, useReducer, useState } from "react";
-import useRobots from "../hooks/useRobots";
 import { cartReducer } from "../reducers/cartReducer";
+import { initialCartState } from "../store/cartStore";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-    const initialState = {
-        robots: [],
-        cart: []
-    }
-    const [state, dispatch] = useReducer(cartReducer, initialState);
+    const [state, dispatch] = useReducer(cartReducer, initialCartState);
     useEffect(() => {
         fetch('http://localhost:8000/api/robots')
             .then(res => res.json())
@@ -17,12 +13,14 @@ const CartProvider = ({ children }) => {
                 dispatch({
                     type: 'INITIALIZE_ROBOTS',
                     payload: {
-                        ...initialState,
+                        ...initialCartState,
                         robots: data?.data
                     }
                 });
             });
     }, []);
+
+    console.log(state)
 
     return (
         <CartContext.Provider value={{ state, dispatch }}>
