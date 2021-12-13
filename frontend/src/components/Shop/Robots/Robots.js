@@ -6,7 +6,7 @@ const Robots = () => {
     const { state } = useCart();
 
     return (
-        <div className="grid grid-cols-2 gap-16">
+        <div className="grid grid-cols-2 gap-12">
             {
                 state?.robots.map(item => <Robot
                     key={item.createdAt}

@@ -1,10 +1,10 @@
-import React, { useReducer } from 'react';
+import React from 'react';
+import useCart from '../../../hooks/useCart';
 import addCartIcon from '../../../images/add-to-cart.png'
-
 
 const Robot = ({ robot }) => {
     const { createdAt, image, material, name, price, stock } = robot;
-
+    const { state, dispatch } = useCart();
     const date = new Date(createdAt);
     const isDisabled = !stock;
 
@@ -24,13 +24,21 @@ const Robot = ({ robot }) => {
                 </div>
                 <div>
                     {/* conditionally applying classnames to button based on disabled status */}
-                    <button
-                        className={`inline-flex justify-center items-center transition duration-300 border border-gray-500 px-3 py-1 ${isDisabled ? 'opacity-25' : 'hover:bg-blue-400 hover:border-blue-400 hover:text-white'}`} disabled={isDisabled}
-                    >
-                        <img src={addCartIcon} alt="add to cart icon" />
-                        <span className="text-lg font-semibold ml-3">Add to Cart</span>
-                    </button>
-                    <p>Length:</p>
+                    {
+                        state.cart.some((item) => item.createdAt === robot.createdAt) ? (
+                            <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: robot })}
+                                className="transition duration-300 border border-red-500 bg-red-500 px-3 py-2 hover:bg-red-700 hover:border-red-700 text-white"
+                            >Remove from Cart</button>
+
+                        ) : (
+                            <button onClick={() => dispatch({ type: 'ADD_TO_CART', payload: robot })}
+                                className={`inline-flex justify-center items-center transition duration-300 border border-gray-500 px-3 py-1 ${isDisabled ? 'opacity-25' : 'hover:bg-blue-400 hover:border-blue-400 hover:text-white'}`} disabled={isDisabled}
+                            >
+                                <img src={addCartIcon} alt="add to cart icon" />
+                                <span className="text-lg font-semibold ml-3">Add to Cart</span>
+                            </button>
+                        )
+                    }
                 </div>
             </div>
         </div>
