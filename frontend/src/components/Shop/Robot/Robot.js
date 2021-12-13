@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import addCartIcon from '../../../images/add-to-cart.png'
+import { cartReducer } from '../../../reducers/cartReducer';
+import { cartStore } from '../../../store/cartStore';
 
 const Robot = ({ robot }) => {
     const { createdAt, image, material, name, price, stock } = robot;
+    const [state, dispatch] = useReducer(cartReducer, cartStore);
     const date = new Date(createdAt);
     const isDisabled = !stock;
 
@@ -21,12 +24,13 @@ const Robot = ({ robot }) => {
                     {stock < 1 && <p className="text-white bg-red-500 mb-3 inline-block py-0.5 px-1.5 rounded">Sold Out</p>}
                 </div>
                 <div>
-                    {/* conditionally applying classnames to button based on disabled stauts */}
-                    <button className={`inline-flex justify-center items-center transition duration-300 border border-gray-500 px-3 py-1 ${isDisabled ? 'opacity-25' : 'hover:bg-blue-400 hover:border-blue-400 hover:text-white'}`} disabled={isDisabled}>
+                    {/* conditionally applying classnames to button based on disabled status */}
+                    <button onClick={() => dispatch({ type: 'ADD_TO_CART', robot })}
+                        className={`inline-flex justify-center items-center transition duration-300 border border-gray-500 px-3 py-1 ${isDisabled ? 'opacity-25' : 'hover:bg-blue-400 hover:border-blue-400 hover:text-white'}`} disabled={isDisabled}>
                         <img src={addCartIcon} alt="add to cart icon" />
                         <span className="text-lg font-semibold ml-3">Add to Cart</span>
                     </button>
-                    <button></button>
+                    <p>Length: {state.robots.length}</p>
                 </div>
             </div>
         </div>

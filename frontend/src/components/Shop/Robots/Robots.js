@@ -4,7 +4,6 @@ import Robot from '../Robot/Robot';
 
 const Robots = () => {
     const { robots } = useRobots();
-    console.log(robots)
     return (
         <div className="grid grid-cols-2 gap-16">
             {

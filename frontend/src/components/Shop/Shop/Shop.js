@@ -1,8 +1,11 @@
 import React from 'react';
+import useCart from '../../../hooks/useCart';
 import Cart from '../Cart/Cart';
 import Robots from '../Robots/Robots';
 
 const Shop = () => {
+    const { state } = useCart();
+    console.log(state);
     return (
         <div>
             <div className="bg-blue-200 py-20">
