@@ -11,8 +11,12 @@ const Robot = ({ robot }) => {
 
     const handleAddToCart = () => {
         robot.stock -= 1;
-        console.log(robot)
         dispatch({ type: 'ADD_TO_CART', payload: robot })
+    }
+
+    const handleRemoveFromCart = () => {
+        robot.stock += 1;
+        dispatch({ type: 'REMOVE_FROM_CART', payload: robot })
     }
 
     return (
@@ -33,7 +37,7 @@ const Robot = ({ robot }) => {
                     {/* conditionally applying classnames to button based on disabled status */}
                     {
                         state.cart.some((item) => item.createdAt === robot.createdAt) ? (
-                            <button onClick={() => dispatch({ type: 'REMOVE_FROM_CART', payload: robot })}
+                            <button onClick={() => handleRemoveFromCart()}
                                 className="transition duration-300 border border-red-500 bg-red-500 px-3 py-2 hover:bg-red-700 hover:border-red-700 text-white"
                             >Remove from Cart</button>
 

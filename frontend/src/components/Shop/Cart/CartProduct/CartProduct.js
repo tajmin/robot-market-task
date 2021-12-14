@@ -1,9 +1,27 @@
 import React from 'react';
+import useCart from '../../../../hooks/useCart';
 import { formattedPrice } from '../../../../utility/utils';
 
-const CartProduct = ({ props }) => {
-    const { image, name, price, quantity } = props;
-    console.log(props);
+const CartProduct = ({ cartProduct }) => {
+    const { image, name, price, quantity, stock } = cartProduct;
+    const { state, dispatch } = useCart();
+
+    const hadnleQuantity = (param) => {
+        if (param) {
+            if (stock > 0) {
+                cartProduct.quantity += 1;
+                cartProduct.stock -= 1;
+                dispatch({ type: 'UPDATE_ITEM_QUANTITY', payload: cartProduct })
+            }
+        } else {
+            if (quantity > 1) {
+                cartProduct.quantity -= 1;
+                cartProduct.stock += 1;
+                dispatch({ type: 'UPDATE_ITEM_QUANTITY', payload: cartProduct })
+            }
+        }
+    }
+
     return (
         <div className="flex bg-blue-100 mb-3 shadow-lg rounded-b-lg">
             <div className="flex p-2">
@@ -17,9 +35,9 @@ const CartProduct = ({ props }) => {
                 </div>
                 <div className="flex flex-col m-auto text-lg gap-4">
                     <div>
-                        <button className="py-0.5 px-4 bg-gray-300 font-semibold">-</button>
+                        <button onClick={() => hadnleQuantity(false)} className="py-0.5 px-4 bg-gray-300 font-semibold">-</button>
                         <button className="py-0.5 px-4 bg-gray-100 font-semibold">{quantity}</button>
-                        <button className="py-0.5 px-4 bg-gray-300 font-semibold">+</button>
+                        <button onClick={() => hadnleQuantity(true)} className="py-0.5 px-4 bg-gray-300 font-semibold">+</button>
                     </div>
                     <div>
                         <button className="py-1 px-2 bg-red-500 text-white">Remove</button>

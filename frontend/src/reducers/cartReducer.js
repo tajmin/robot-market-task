@@ -17,11 +17,20 @@ export const cartReducer = (state, action) => {
                 return state;
             }
 
-
         case 'REMOVE_FROM_CART':
             return {
                 ...state,
                 cart: state.cart.filter(item => item.createdAt !== action.payload.createdAt)
+            }
+
+        case 'UPDATE_ITEM_QUANTITY':
+            //const newCart = state.cart.filter(item => item.createdAt !== action.payload.createdAt)
+            console.log(action.payload);
+            return {
+                ...state,
+                cart: [
+                    ...state.cart.filter(item => item.createdAt !== action.payload.createdAt), action.payload
+                ]
             }
 
         case 'INITIALIZE_ROBOTS':

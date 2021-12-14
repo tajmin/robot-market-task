@@ -15,7 +15,7 @@ const Cart = () => {
         <div>
             {
                 cart.map(item => <CartProduct
-                    key={item.createdAt} props={item}
+                    key={item.createdAt} cartProduct={item}
                 ></CartProduct>
                 )
             }
