@@ -6,7 +6,8 @@ const Robots = () => {
     const { state } = useCart();
 
     return (
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid xl:grid-cols-3 gap-12 p-10 xl:p-0">
+            {/* populating robot cards from context by passing props to Robot component */}
             {
                 state?.robots.map(item => <Robot
                     key={item.createdAt}

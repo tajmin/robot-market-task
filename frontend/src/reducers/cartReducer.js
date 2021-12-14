@@ -1,3 +1,5 @@
+//reducer function for handling conditions
+
 export const cartReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TO_CART':
@@ -20,24 +22,28 @@ export const cartReducer = (state, action) => {
         case 'REMOVE_FROM_CART':
             return {
                 ...state,
+                robots: [...state.robots.filter(item => item.createdAt === action.payload.createdAt ? (
+                    item.stock = action.payload.stock
+                ) : (item.stock))],
                 cart: state.cart.filter(item => item.createdAt !== action.payload.createdAt)
             }
 
         case 'UPDATE_ITEM_QUANTITY':
-            //const newCart = state.cart.filter(item => item.createdAt !== action.payload.createdAt)
-            console.log(action.payload);
             return {
                 ...state,
+                robots: [...state.robots.filter(item => item.createdAt === action.payload.createdAt ? (
+                    item.stock = action.payload.stock
+                ) : (item.stock))],
                 cart: [
                     ...state.cart.filter(item => item.createdAt !== action.payload.createdAt), action.payload
                 ]
             }
 
+        //updating context with robots 
         case 'INITIALIZE_ROBOTS':
             return action.payload;
 
         default:
             return state;
-            break;
     }
 }

@@ -6,6 +6,8 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
     const [state, dispatch] = useReducer(cartReducer, initialCartState);
+
+    //fecthing robots from server and assigning to context for app-wide access
     useEffect(() => {
         fetch('http://localhost:8000/api/robots')
             .then(res => res.json())
