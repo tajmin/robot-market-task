@@ -1,12 +1,19 @@
 import React from 'react';
 import useCart from '../../../hooks/useCart';
 import addCartIcon from '../../../images/add-to-cart.png'
+import { formattedPrice } from '../../../utility/utils';
 
 const Robot = ({ robot }) => {
     const { createdAt, image, material, name, price, stock } = robot;
     const { state, dispatch } = useCart();
     const date = new Date(createdAt);
     const isDisabled = !stock;
+
+    const handleAddToCart = () => {
+        robot.stock -= 1;
+        console.log(robot)
+        dispatch({ type: 'ADD_TO_CART', payload: robot })
+    }
 
     return (
         <div className="bg-blue-50 py-1 rounded-lg shadow-xl">
@@ -15,7 +22,7 @@ const Robot = ({ robot }) => {
             </div>
             <div className="text-center py-3">
                 <h1 className="mt-4 mb-2 text-2xl">{name}</h1>
-                <h2 className="text-gray-500 text-xl font-bold mb-4">{new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB' }).format(price)}</h2>
+                <h2 className="text-gray-500 text-xl font-bold mb-4">{formattedPrice(price)}</h2>
                 <div className="h-28 text-gray-500">
                     <p className="mb-1">Made of {material}</p>
                     <p className="mb-2">Created On {date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear()}</p>
@@ -31,7 +38,7 @@ const Robot = ({ robot }) => {
                             >Remove from Cart</button>
 
                         ) : (
-                            <button onClick={() => dispatch({ type: 'ADD_TO_CART', payload: robot })}
+                            <button onClick={() => handleAddToCart()}
                                 className={`inline-flex justify-center items-center transition duration-300 border border-gray-500 px-3 py-1 ${isDisabled ? 'opacity-25' : 'hover:bg-blue-400 hover:border-blue-400 hover:text-white'}`} disabled={isDisabled}
                             >
                                 <img src={addCartIcon} alt="add to cart icon" />

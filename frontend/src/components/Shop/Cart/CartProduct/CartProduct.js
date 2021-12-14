@@ -1,23 +1,29 @@
 import React from 'react';
+import { formattedPrice } from '../../../../utility/utils';
 
 const CartProduct = ({ props }) => {
     const { image, name, price, quantity } = props;
     console.log(props);
     return (
-        <div className="flex bg-gray-50 mb-2 shadow-lg rounded-b-lg">
-            <div>
-                <img src={image} alt="" />
+        <div className="flex bg-blue-100 mb-3 shadow-lg rounded-b-lg">
+            <div className="flex p-2">
+                <img className="rounded-full h-24 w-24 m-auto border-2 border-gray-100" src={image} alt="" />
             </div>
-            <div className="py-3 flex flex-grow">
+            <div className="py-3 flex flex-grow bg-white">
                 <div className="px-4 w-48">
                     <h1 className="text-lg">{name}</h1>
                     <p>Quantity {quantity}</p>
-                    <p>Price {price}</p>
+                    <p>Price {formattedPrice(price)}</p>
                 </div>
-                <div className="flex m-auto text-lg">
-                    <button className="py-0.5 px-3 bg-gray-200 font-semibold">-</button>
-                    <button className="py-0.5 px-3 bg-gray-100 font-semibold">{quantity}</button>
-                    <button className="py-0.5 px-3 bg-gray-200 font-semibold">+</button>
+                <div className="flex flex-col m-auto text-lg gap-4">
+                    <div>
+                        <button className="py-0.5 px-4 bg-gray-300 font-semibold">-</button>
+                        <button className="py-0.5 px-4 bg-gray-100 font-semibold">{quantity}</button>
+                        <button className="py-0.5 px-4 bg-gray-300 font-semibold">+</button>
+                    </div>
+                    <div>
+                        <button className="py-1 px-2 bg-red-500 text-white">Remove</button>
+                    </div>
                 </div>
             </div>
 
