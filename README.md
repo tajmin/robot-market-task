@@ -5,6 +5,10 @@ where on the right side of the screen should display a cart that show a list of 
 
 Please read the instructions and FAQ below before begin.
 
+## Contact Details
+ - Name: Md. Tajminur Rahman
+ - Email: tajminur.aiub@gmail.com
+
 ## Features
 
 - products should display in a grid.
